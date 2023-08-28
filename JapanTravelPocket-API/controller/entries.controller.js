@@ -15,6 +15,9 @@ exports.createEntry = (req, res) => {
     day: req.body.day,
     amount: req.body.amount,
   };
+  console.log(entry.name);
+  console.log(entry.day);
+  console.log(entry.amount);
 
   EntryEntity.create(entry)
     .then((data) => {
@@ -23,6 +26,30 @@ exports.createEntry = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: "Some error occurred while creating entries.",
+      });
+    });
+};
+
+/// GET, return all entries with an exact matching date
+exports.getEntryAtDate = (req, res) => {
+  const day = req.query.day;
+
+  if (!day) {
+    return res.status(400).send({
+      message: "No date provided for searching entries.",
+    });
+  }
+
+  EntryEntity.findAll({
+    where: { day: day },
+    order: [["entry_id", "ASC"]],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Some error occurred while retrieving entries.",
       });
     });
 };

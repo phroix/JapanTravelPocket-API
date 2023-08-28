@@ -1,4 +1,3 @@
-
 // const express = require('express');
 const router = require("express").Router();
 
@@ -18,7 +17,9 @@ module.exports = (app) => {
   router.post("/", entryController.createEntry);
 
   //GET, return all product
-  router.get("/", entryController.getAllEntries);
+  router.get("/", entryController.getEntryAtDate);
+
+  router.get("/list", entryController.getAllEntries);
 
   //PUT, update a product with product_id
   router.put("/:entry_id", entryController.updateEntry);
