@@ -45,6 +45,6 @@ db.sequelize
     console.log("Failed to sync db: " + err.message);
   });
 
-require("./routes/entries.routes")(app);
+require("./routes/costs.routes")(app);
 
 module.exports = app;

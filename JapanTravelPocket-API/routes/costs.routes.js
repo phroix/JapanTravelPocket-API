@@ -1,7 +1,7 @@
 // const express = require('express');
 const router = require("express").Router();
 
-var entryController = require("../controller/entries.controller");
+var costController = require("../controller/costs.controller");
 
 module.exports = (app) => {
   // accepts custom headers
@@ -14,18 +14,18 @@ module.exports = (app) => {
   });
 
   //POST, create entries and save in db
-  router.post("/", entryController.createEntry);
+  router.post("/", costController.createCost);
 
-  //GET, return all product
-  router.get("/", entryController.getEntryAtDate);
+  //GET, return costs at date product
+  router.get("/", costController.getCostAtDate);
 
-  router.get("/list", entryController.getAllEntries);
+  router.get("/list", costController.getAllCosts);
 
   //PUT, update a product with product_id
-  router.put("/:entry_id", entryController.updateEntry);
+  router.put("/:cost_id", costController.updateCost);
 
   //DELETE, delete a product with product_id
-  router.delete("/:entry_id", entryController.deleteEntry);
+  router.delete("/:cost_id", costController.deleteCost);
 
-  app.use("/entries", router);
+  app.use("/costs", router);
 };

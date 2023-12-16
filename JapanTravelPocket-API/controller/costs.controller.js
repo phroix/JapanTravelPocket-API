@@ -4,22 +4,23 @@
 */
 const { where } = require("sequelize");
 const db = require("../entity/index.entity");
-const EntryEntity = db.entry;
+const CostEntity = db.cost;
 const Op = db.Sequelize.Op;
 
 //POST, create product and save in db
-exports.createEntry = (req, res) => {
+exports.createCost = (req, res) => {
   //create a product
-  const entry = {
+  const cost = {
     name: req.body.name,
-    day: req.body.day,
+    date: req.body.date,
     amount: req.body.amount,
+    currency: req.body.currency
   };
-  console.log(entry.name);
-  console.log(entry.day);
-  console.log(entry.amount);
+  console.log(cost.name);
+  console.log(cost.day);
+  console.log(cost.amount);
 
-  EntryEntity.create(entry)
+  CostEntity.create(cost)
     .then((data) => {
       res.send(data);
     })
@@ -31,18 +32,18 @@ exports.createEntry = (req, res) => {
 };
 
 /// GET, return all entries with an exact matching date
-exports.getEntryAtDate = (req, res) => {
-  const day = req.query.day;
+exports.getCostAtDate = (req, res) => {
+  const date = req.query.date;
 
-  if (!day) {
+  if (!date) {
     return res.status(400).send({
       message: "No date provided for searching entries.",
     });
   }
 
-  EntryEntity.findAll({
-    where: { day: day },
-    order: [["entry_id", "ASC"]],
+  CostEntity.findAll({
+    where: { date: date },
+    order: [["cost_id", "ASC"]],
   })
     .then((data) => {
       res.send(data);
@@ -55,9 +56,9 @@ exports.getEntryAtDate = (req, res) => {
 };
 
 //GET, return all product
-exports.getAllEntries = (req, res) => {
-  EntryEntity.findAll({
-    order: [["entry_id", "ASC"]],
+exports.getAllCosts = (req, res) => {
+  CostEntity.findAll({
+    order: [["cost_id", "ASC"]],
   })
     .then((data) => {
       res.send(data);
@@ -70,11 +71,11 @@ exports.getAllEntries = (req, res) => {
 };
 
 //PUT, update a product with product_id
-exports.updateEntry = (req, res) => {
-  const entry_id = req.params.entry_id;
+exports.updateCost = (req, res) => {
+  const cost_id = req.params.cost_id;
 
-  EntryEntity.update(req.body, {
-    where: { entry_id: entry_id },
+  CostEntity.update(req.body, {
+    where: { cost_id: cost_id },
   })
     .then((num) => {
       if (num == 1) {
@@ -83,23 +84,23 @@ exports.updateEntry = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot update Entry with product_id=${entry_id}. Maybe Entry was not found or req.body is empty!`,
+          message: `Cannot update Entry with product_id=${cost_id}. Maybe Entry was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Entry with entry_id=" + entry_id,
+        message: "Error updating Entry with entry_id=" + cost_id,
       });
     });
 };
 
 //DELETE, delete a user with user_id
-exports.deleteEntry = (req, res) => {
-  const entry_id = req.params.entry_id;
+exports.deleteCost = (req, res) => {
+  const cost_id = req.params.cost_id;
 
-  EntryEntity.destroy({
-    where: { entry_id: entry_id },
+  CostEntity.destroy({
+    where: { cost_id: cost_id },
   })
     .then((num) => {
       if (num == 1) {
@@ -108,13 +109,13 @@ exports.deleteEntry = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot delete Entry with entry_id=${entry_id}. Maybe Entry was not found!`,
+          message: `Cannot delete Entry with entry_id=${cost_id}. Maybe Entry was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Entry with entry_id=" + entry_id,
+        message: "Could not delete Entry with entry_id=" + cost_id,
       });
     });
 };

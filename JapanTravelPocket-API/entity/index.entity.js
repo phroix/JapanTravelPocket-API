@@ -21,6 +21,6 @@ db.Sequelize = Sequelize; //for Datatypes and SQL Operations
 db.sequelize = sequelize; //created sequelize object
 
 // import entity with (sequelize, Sequelize)
-db.entry = require("./entries.entity")(sequelize, Sequelize);
+db.cost = require("./cost.entity")(sequelize, Sequelize);
 
 module.exports = db;

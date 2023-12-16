@@ -1,18 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
-    const Entry = sequelize.define(
-      "entries",
+    const Cost = sequelize.define(
+      "costs",
       {
-        entry_id: {
+        cost_id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           allowNull: false,
-          field: "entry_id",
+          field: "cost_id",
         },
-        day: {
+        date: {
           type: Sequelize.DATEONLY, // Use DATEONLY for date without time
           allowNull: false,
-          field: "day",
+          field: "date",
         },
         name: {
           type: Sequelize.STRING(45),
@@ -21,17 +21,23 @@ module.exports = (sequelize, Sequelize) => {
         },
         amount: {
           type: Sequelize.FLOAT,
-          allowNull: true,
+          allowNull: false,
           field: "amount",
         },
+        currency:{
+          type: Sequelize.ENUM,
+          allowNull: false,
+          field: "currency",
+          values: ['yen', 'eur']
+        }
       },
       {
-        tableName: "entries",
+        tableName: "costs",
         timestamps: false, // To not add createdAt & updatedAt per default
         freezeTableName: true, // Stop auto-pluralization
       }
     );
   
-    return Entry;
+    return Cost;
   };
   
