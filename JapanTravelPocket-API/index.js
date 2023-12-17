@@ -8,13 +8,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// var corsOptions = {
-//   //for example can define host of frontend
-//   origin: "http://localhost:3000",
-// };
+var corsOptions = {
+  //for example can define host of frontend
+  origin: "http://localhost:8081",
+};
 
 // provides Express middleware to enable CORS with various options
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // parse request data content type application/json
 app.use(express.json());
