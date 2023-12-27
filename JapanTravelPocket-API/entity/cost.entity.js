@@ -25,10 +25,10 @@ module.exports = (sequelize, Sequelize) => {
           field: "amount",
         },
         currency:{
-          type: Sequelize.ENUM,
+          type: Sequelize.STRING(45),
           allowNull: false,
           field: "currency",
-          values: ['yen', 'eur']
+          // values: ['yen', 'eur']
         }
       },
       {

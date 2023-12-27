@@ -17,8 +17,9 @@ exports.createCost = (req, res) => {
     currency: req.body.currency
   };
   console.log(cost.name);
-  console.log(cost.day);
+  console.log(cost.date);
   console.log(cost.amount);
+  console.log(cost.currency);
 
   CostEntity.create(cost)
     .then((data) => {
@@ -43,7 +44,7 @@ exports.getCostAtDate = (req, res) => {
 
   CostEntity.findAll({
     where: { date: date },
-    order: [["cost_id", "ASC"]],
+    order: [["cost_id", "DESC"]],
   })
     .then((data) => {
       res.send(data);
