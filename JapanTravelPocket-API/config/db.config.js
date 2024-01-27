@@ -1,8 +1,8 @@
 //local database
 module.exports = {
-  HOST: "localhost",
-  USER: "root",
-  PASSWORD: "mypassword123",
-  DB: "jtp",
-  dialect: "mysql",
+  HOST: "34.89.183.244",
+  USER: "postgres",
+  PASSWORD: "adminphirith",
+  DB: "japantravelpocket",
+  dialect: "postgres",
 };

@@ -2,12 +2,12 @@ module.exports = (sequelize, Sequelize) => {
     const Cost = sequelize.define(
       "costs",
       {
-        cost_id: {
+        id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           allowNull: false,
-          field: "cost_id",
+          field: "id",
         },
         date: {
           type: Sequelize.DATEONLY, // Use DATEONLY for date without time
