@@ -1,8 +1,6 @@
-//local database
-module.exports = {
-  HOST: "34.89.183.244",
-  USER: "postgres",
-  PASSWORD: "adminphirith",
-  DB: "japantravelpocket",
-  dialect: "postgres",
-};
+const { createClient } = require("@supabase/supabase-js");
+const supabaseUrl = "https://dqlrenuglphncimidbjl.supabase.co";
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+module.exports = supabase;

@@ -1,50 +1,22 @@
+require("dotenv").config();
 const express = require("express");
-const cors = require("cors"); // data transfers between browsers and servers
-
-//import sequelized db with objects
-const db = require("./entity/index.entity.js");
+const bodyParser = require("body-parser");
+const spendingsRouter = require("./routes/spendings.routes");
 
 const app = express();
-app.use(express.json());
-app.use(cors());
-
-var corsOptions = {
-  //for example can define host of frontend
-  origin: "http://localhost:8081",
-};
-
-// provides Express middleware to enable CORS with various options
-app.use(cors(corsOptions));
-
-// parse request data content type application/json
-app.use(express.json());
-
-// parse request data content type application/x-www-form-rulencoded
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-// simple home route
+// home route
 app.get("/", (req, res) => {
-  // res.json({ message: "Welcome to backend application." });
-  res.sendStatus(200);
+  res.json({ message: "JapanTravelPocker-API." });
 });
 
+require("./routes/spendings.routes")(app);
+require("./routes/tags.routes")(app);
 
+const PORT = process.env.PORT || 8080;
 
-// drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
-
-// creates tables if doesn't exist (does nothing if already exists)
-db.sequelize
-  .sync()
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
-
-require("./routes/costs.routes")(app);
-
-module.exports = app;
+app.listen(PORT, () => {
+  console.log("Server is running on Port", PORT);
+});
